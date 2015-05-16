@@ -25,6 +25,9 @@
 /* Begin PBXFileReference section */
 		12D140C81B064A8A00BD9AC2 /* JJSTL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JJSTL; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D140CB1B064A8A00BD9AC2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		12D140D21B064B5000BD9AC2 /* jjalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jjalloc.h; sourceTree = "<group>"; };
+		12D140D31B079F8100BD9AC2 /* jjmemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jjmemory.h; sourceTree = "<group>"; };
+		12D140D41B07A0FC00BD9AC2 /* jjmemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jjmemory.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				12D140CB1B064A8A00BD9AC2 /* main.cpp */,
+				12D140D31B079F8100BD9AC2 /* jjmemory.h */,
+				12D140D41B07A0FC00BD9AC2 /* jjmemory.cpp */,
+				12D140D21B064B5000BD9AC2 /* jjalloc.h */,
 			);
 			path = JJSTL;
 			sourceTree = "<group>";
