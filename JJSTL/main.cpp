@@ -7,7 +7,7 @@
 //
 #include "jjalloc.h"
 #include <iostream>
-#include <vector>
+#include "jjvector.h"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -15,7 +15,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "Hello, World!\n";
     int ia[5] = {0,1,2,3,4};
     unsigned int i;
-    vector<int, JJ::allocator<int>> iv(ia,ia+5);
+    JJ::vector<int, JJ::allocator<int>> iv(4,1);
     for (i = 0;i < iv.size(); i++) {
         cout<<iv[i]<<" ";
     }
