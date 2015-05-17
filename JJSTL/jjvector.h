@@ -26,9 +26,9 @@ namespace JJ
         iterator start;
         iterator finish;
         iterator end_of_storage;
-        Allocator alloc;
+
         iterator allocate_and_fill(size_type n, const T&x){
-            iterator result =alloc.allocate(n);
+            iterator result =Allocator::allocate(n);
             uninitialized_fill_n(result, n, x);
             return result;
             

@@ -6,10 +6,13 @@
 //  Copyright (c) 2015年 yangpengwei. All rights reserved.
 //
 
+#include <new>
 
 template <class T1, class T2>
 inline void construct(T1 * p,const T2& value){
-    new (p)T1(value);
+    new (p)T1(value);//在已经分配好的内存指针p上,构造T1::T1(value)
+    //也就是说placement new允许你在一个已经分配好的内存中（栈或堆中）构造一个新的对象。
+    //原型中void*p实际上就是指向一个已经分配好的内存缓冲区的的首地址。
 }
 template <class T>
 inline void destroy(T* pointer){
@@ -23,7 +26,7 @@ template <class ForwardIterator, class Size, class T>
 inline ForwardIterator uninitialized_fill_n(ForwardIterator first, Size n, const T& x){
     ForwardIterator cur =first;
     for (; n > 0; --n, ++cur) {
-        construct(&*cur, x);
+        construct(cur, x);//在已经分配好的内存中cur，构造一个新的对象x
     }
     return cur;
 }
