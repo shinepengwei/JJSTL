@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		12D140CC1B064A8A00BD9AC2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140CB1B064A8A00BD9AC2 /* main.cpp */; };
 		12D140D81B07A2A500BD9AC2 /* jjvector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140D71B07A2A500BD9AC2 /* jjvector.cpp */; };
+		12D140DC1B0A1DC500BD9AC2 /* jj_iterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140DA1B0A1DC500BD9AC2 /* jj_iterator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		12D140D41B07A0FC00BD9AC2 /* jjmemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jjmemory.cpp; sourceTree = "<group>"; };
 		12D140D61B07A28700BD9AC2 /* jjvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jjvector.h; sourceTree = "<group>"; };
 		12D140D71B07A2A500BD9AC2 /* jjvector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jjvector.cpp; sourceTree = "<group>"; };
+		12D140DA1B0A1DC500BD9AC2 /* jj_iterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jj_iterator.cpp; sourceTree = "<group>"; };
+		12D140DB1B0A1DC500BD9AC2 /* jj_iterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jj_iterator.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 		12D140CA1B064A8A00BD9AC2 /* JJSTL */ = {
 			isa = PBXGroup;
 			children = (
+				12D140D91B0A1DA700BD9AC2 /* iterator */,
 				12D140D51B07A24800BD9AC2 /* containers */,
 				12D140CB1B064A8A00BD9AC2 /* main.cpp */,
 				12D140D31B079F8100BD9AC2 /* jjmemory.h */,
@@ -79,6 +83,15 @@
 				12D140D71B07A2A500BD9AC2 /* jjvector.cpp */,
 			);
 			name = containers;
+			sourceTree = "<group>";
+		};
+		12D140D91B0A1DA700BD9AC2 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				12D140DA1B0A1DC500BD9AC2 /* jj_iterator.cpp */,
+				12D140DB1B0A1DC500BD9AC2 /* jj_iterator.h */,
+			);
+			name = iterator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12D140DC1B0A1DC500BD9AC2 /* jj_iterator.cpp in Sources */,
 				12D140D81B07A2A500BD9AC2 /* jjvector.cpp in Sources */,
 				12D140CC1B064A8A00BD9AC2 /* main.cpp in Sources */,
 			);
@@ -252,6 +266,7 @@
 				12D140D11B064A8A00BD9AC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
