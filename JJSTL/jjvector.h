@@ -7,6 +7,7 @@
 //
 #include "jjalloc.h"
 #include "jjmemory.h"
+#include "jj_iterator.h"
 namespace JJ
 {
     
@@ -48,6 +49,31 @@ namespace JJ
         
         size_type size() const {return size_type(finish - start);}
         reference operator[](size_type n){return *(start + n);}
+        iterator begin(){return start;}
     };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
