@@ -41,6 +41,7 @@ void testList(){
     cout<<*it<<endl;
     ++it;
     cout<<*it<<endl;
+    cout<<il.size()<<endl;
     
 }
 int main(int argc, const char * argv[]) {

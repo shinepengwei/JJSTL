@@ -12,6 +12,7 @@
 		12D140DC1B0A1DC500BD9AC2 /* jj_iterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140DA1B0A1DC500BD9AC2 /* jj_iterator.cpp */; };
 		12D140E01B0B72A800BD9AC2 /* vector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140DE1B0B72A800BD9AC2 /* vector_test.cpp */; };
 		12D140E31B0B774500BD9AC2 /* jj_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140E11B0B774500BD9AC2 /* jj_list.cpp */; };
+		12D140E71B0E330400BD9AC2 /* jj_iterfunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140E51B0E330400BD9AC2 /* jj_iterfunc.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,8 @@
 		12D140DF1B0B72A800BD9AC2 /* vector_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector_test.h; sourceTree = "<group>"; };
 		12D140E11B0B774500BD9AC2 /* jj_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jj_list.cpp; sourceTree = "<group>"; };
 		12D140E21B0B774500BD9AC2 /* jj_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jj_list.h; sourceTree = "<group>"; };
+		12D140E51B0E330400BD9AC2 /* jj_iterfunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jj_iterfunc.cpp; sourceTree = "<group>"; };
+		12D140E61B0E330400BD9AC2 /* jj_iterfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jj_iterfunc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,7 @@
 		12D140CA1B064A8A00BD9AC2 /* JJSTL */ = {
 			isa = PBXGroup;
 			children = (
+				12D140E41B0E32E400BD9AC2 /* New Group */,
 				12D140DD1B0B728C00BD9AC2 /* testcase */,
 				12D140D91B0A1DA700BD9AC2 /* iterator */,
 				12D140D51B07A24800BD9AC2 /* containers */,
@@ -99,6 +103,8 @@
 			children = (
 				12D140DA1B0A1DC500BD9AC2 /* jj_iterator.cpp */,
 				12D140DB1B0A1DC500BD9AC2 /* jj_iterator.h */,
+				12D140E51B0E330400BD9AC2 /* jj_iterfunc.cpp */,
+				12D140E61B0E330400BD9AC2 /* jj_iterfunc.h */,
 			);
 			name = iterator;
 			sourceTree = "<group>";
@@ -110,6 +116,13 @@
 				12D140DF1B0B72A800BD9AC2 /* vector_test.h */,
 			);
 			name = testcase;
+			sourceTree = "<group>";
+		};
+		12D140E41B0E32E400BD9AC2 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12D140DC1B0A1DC500BD9AC2 /* jj_iterator.cpp in Sources */,
+				12D140E71B0E330400BD9AC2 /* jj_iterfunc.cpp in Sources */,
 				12D140D81B07A2A500BD9AC2 /* jjvector.cpp in Sources */,
 				12D140E31B0B774500BD9AC2 /* jj_list.cpp in Sources */,
 				12D140E01B0B72A800BD9AC2 /* vector_test.cpp in Sources */,

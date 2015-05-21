@@ -99,15 +99,7 @@ namespace JJ{
     inline void advance(InputIterator &i, Distance n){
         __advance(i, n, iterator_category(i));
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 }
 #endif /* defined(__JJSTL__jj_iterator__) */
