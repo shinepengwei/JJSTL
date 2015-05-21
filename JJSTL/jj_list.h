@@ -43,7 +43,7 @@ namespace JJ{
         }
     };
     
-    template <class T, class Allocator = JJ::allocator<__list_node<T>>>
+    template <class T, class Alloc = JJ::allocator<__list_node<T>>>
     class list{
     protected:
         typedef __list_node<T> list_node;
@@ -70,7 +70,7 @@ namespace JJ{
         
         
     protected:
-        link_type get_node(){return Allocator::allocator();}
+        link_type get_node(){return Alloc::allocate(1);}
         link_type create_node(const T& x){
             link_type p = get_node();
             construct(&p->data,x);
