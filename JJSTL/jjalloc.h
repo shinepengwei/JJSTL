@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <climits>
 #include <iostream>
+#include "jjmemory.h"
 
 namespace JJ {
     template <class T>
@@ -30,16 +31,6 @@ namespace JJ {
     template <class T>
     inline void _deallocate(T* buffer){
         ::operator delete(buffer);
-    }
-    
-    template <class T1, class T2>
-    inline void _construct(T1 *p, const T2&value){
-        new(p) T1(value);
-    }
-    
-    template<class T>
-    inline void _destroy(T* ptr){
-        ptr->~T();
     }
     
     template<class T>
@@ -65,11 +56,6 @@ namespace JJ {
         static void deallocate(pointer p , size_type n){
             _deallocate(p);
         }
-        
-        static void construct(pointer p, const T& value){
-            _construct(p, value);
-        }
-        static void destroy(pointer p){_destroy(p);}
         
         static pointer address(reference x){return (pointer) &x;}
         

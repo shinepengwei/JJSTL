@@ -5,8 +5,9 @@
 //  Created by yangpengwei on 15/5/16.
 //  Copyright (c) 2015年 yangpengwei. All rights reserved.
 //
-
+#pragma once
 #include <new>
+namespace JJ {
 
 template <class T1, class T2>
 inline void construct(T1 * p,const T2& value){
@@ -26,7 +27,9 @@ template <class ForwardIterator, class Size, class T>
 inline ForwardIterator uninitialized_fill_n(ForwardIterator first, Size n, const T& x){
     ForwardIterator cur =first;
     for (; n > 0; --n, ++cur) {
-        construct(cur, x);//在已经分配好的内存中cur，构造一个新的对象x
+        JJ::construct(cur, x);//在已经分配好的内存中cur，构造一个新的对象x
     }
     return cur;
+}
+
 }

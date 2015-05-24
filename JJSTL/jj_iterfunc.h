@@ -21,7 +21,7 @@ namespace JJ {
     __distance(InputIterator first, InputIterator last, input_iterator_tag){
         typename iterator_traits<InputIterator>::difference_type n =0;
         while (first != last) {
-            n++;
+            ++n;
             ++first;
         }
         return n;

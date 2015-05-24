@@ -69,7 +69,7 @@ namespace JJ{
         link_type get_node(){return Alloc::allocate(1);}
         link_type create_node(const T& x){
             link_type p = get_node();
-            construct(&p->data,x);
+            JJ::construct(&(p->data),x);
             return p;
         }
 
