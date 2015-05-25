@@ -41,6 +41,21 @@ void testList(){
     cout<<*it<<endl;
     ++it;
     cout<<*it<<endl;
+    ++it;
+    cout<<*it<<endl;
+    ++it;
+    cout<<*it<<endl;
+    ++it;
+    cout<<*it<<endl;
+    
+    cout<<"size:"<<il.size()<<endl;
+    it = il.erase(it);
+    cout<<"after erase:"<<*it<<endl;
+    it = il.erase(it);
+    cout<<"after erase:"<<*it<<endl;
+    il.erase(it);
+    cout<<"erase:"<<*it<<endl;//TODO：猜的：：这里指向的内存应该已经释放了，但是数据还没有被覆盖。因此还可以访问
+
     cout<<il.size()<<endl;
     
 }

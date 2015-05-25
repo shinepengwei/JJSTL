@@ -30,6 +30,7 @@ namespace JJ {
     
     template <class T>
     inline void _deallocate(T* buffer){
+        std::cout<<"destory:"<<buffer<<std::endl;
         ::operator delete(buffer);
     }
     
