@@ -20,9 +20,23 @@ inline void destroy(T* pointer){
     pointer->~T();
 }
 
-template <class InputIterator, class ForwardIterator>
-ForwardIterator uninitialized_copy(InputIterator first ,InputIterator last, ForwardIterator result);
+template<class T>
+inline void destroy(T* begin, T* end){
+	while (begin < end){
+		begin->~T();
+		++begin;
+	}
+}
 
+template <class InputIterator, class ForwardIterator>
+inline ForwardIterator uninitialized_copy(InputIterator first ,InputIterator last, ForwardIterator result){
+        ForwardIterator cur = result;
+        for (; first != last; ++first, ++cur) {
+            construct(&*cur, *first);
+        }
+        return cur;
+        
+    }
 template <class ForwardIterator, class Size, class T>
 inline ForwardIterator uninitialized_fill_n(ForwardIterator first, Size n, const T& x){
     ForwardIterator cur =first;

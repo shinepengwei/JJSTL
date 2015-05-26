@@ -18,8 +18,12 @@ void testVector1(){
     for (i = 0;i < iv.size(); i++) {
         cout<<iv[i]<<" ";
     }
+    cout<<endl;
     iv[1] = 2;
     iv[2] = 3;
+    for (i = 0;i < iv.size(); i++) {
+        cout<<iv[i]<<" ";
+    }
     cout<<endl;
     
     JJ::vector<int>::iterator iter = iv.begin();
@@ -28,6 +32,15 @@ void testVector1(){
     cout<<*iter<<endl;
     iter++;
     cout<<*iter<<endl;
+cout<<"capacity:"<<iv.capacity()<<endl;
+    iv.push_back(4);
+    cout<<"capacity:"<<iv.capacity()<<endl;
+    iv.push_back(5);
+    cout<<"capacity:"<<iv.capacity()<<endl;
+    for (i = 0;i < iv.size(); i++) {
+        cout<<iv[i]<<" ";
+    }
+    cout<<endl;
     
 }
 void testList(){
@@ -60,6 +73,6 @@ void testList(){
     
 }
 int main(int argc, const char * argv[]) {
-    testList();
+    testVector1();
     return 0;
 }

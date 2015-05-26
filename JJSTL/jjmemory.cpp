@@ -7,13 +7,7 @@
 //
 
 #include "jjmemory.h"
-
-template <class InputIterator, class ForwardIterator>
-ForwardIterator uninitialized_copy(InputIterator first ,InputIterator last, ForwardIterator result){
-    ForwardIterator cur = result;
-    for (; first != last; ++first, ++cur) {
-        construct(&*cur, *first);
-    }
-    return cur;
-
+namespace JJ{
+	
 }
+
