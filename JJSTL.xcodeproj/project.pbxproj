@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12475D1C1B1C81200055B097 /* jj_deque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12475D1A1B1C81200055B097 /* jj_deque.cpp */; };
 		12D140CC1B064A8A00BD9AC2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140CB1B064A8A00BD9AC2 /* main.cpp */; };
 		12D140D81B07A2A500BD9AC2 /* jjvector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140D71B07A2A500BD9AC2 /* jjvector.cpp */; };
 		12D140DC1B0A1DC500BD9AC2 /* jj_iterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D140DA1B0A1DC500BD9AC2 /* jj_iterator.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		12475D1A1B1C81200055B097 /* jj_deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jj_deque.cpp; sourceTree = "<group>"; };
+		12475D1B1B1C81200055B097 /* jj_deque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jj_deque.h; sourceTree = "<group>"; };
 		12D140C81B064A8A00BD9AC2 /* JJSTL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JJSTL; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D140CB1B064A8A00BD9AC2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		12D140D21B064B5000BD9AC2 /* jjalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jjalloc.h; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				12D140D71B07A2A500BD9AC2 /* jjvector.cpp */,
 				12D140E11B0B774500BD9AC2 /* jj_list.cpp */,
 				12D140E21B0B774500BD9AC2 /* jj_list.h */,
+				12475D1A1B1C81200055B097 /* jj_deque.cpp */,
+				12475D1B1B1C81200055B097 /* jj_deque.h */,
 			);
 			name = containers;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 			files = (
 				12D140DC1B0A1DC500BD9AC2 /* jj_iterator.cpp in Sources */,
 				12D140E71B0E330400BD9AC2 /* jj_iterfunc.cpp in Sources */,
+				12475D1C1B1C81200055B097 /* jj_deque.cpp in Sources */,
 				12D140D81B07A2A500BD9AC2 /* jjvector.cpp in Sources */,
 				12D140E31B0B774500BD9AC2 /* jj_list.cpp in Sources */,
 				12D140E01B0B72A800BD9AC2 /* vector_test.cpp in Sources */,

@@ -10,6 +10,7 @@
 #include "jjvector.h"
 #include "vector_test.h"
 #include "jj_list.h"
+#include "jj_deque.h"
 using namespace JJ;
 
 void testVector1(){
@@ -72,7 +73,11 @@ void testList(){
     cout<<il.size()<<endl;
     
 }
+
+void testDeque(){
+    JJ::deque<int,8> ideq(20,9);
+}
 int main(int argc, const char * argv[]) {
-    testVector1();
+    testDeque();
     return 0;
 }

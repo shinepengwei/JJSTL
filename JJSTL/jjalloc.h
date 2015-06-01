@@ -65,9 +65,8 @@ namespace JJ {
         static size_type max_size(){
             return size_type(UINT_MAX/sizeof(T));
         }
-        
-        
     };
+    
 
 }
 #endif
