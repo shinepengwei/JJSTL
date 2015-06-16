@@ -12,9 +12,11 @@
 #include <stdio.h>
 #include "jj_iterator.h"
 #include "jjalloc.h"
+#include "jjmemory.h"
 #endif /* defined(__JJSTL__jj_deque__) */
 
 namespace JJ {
+    //计算
     inline size_t __deque_buf_size(size_t n, size_t sz){
         return n!=0? n:(sz < 512 ? size_t(512/sz) : size_t(1));
     }
@@ -29,12 +31,13 @@ namespace JJ {
         
         
         //每个buf所存放的元素个数
+        //buf:一个map node节点指向的缓冲区
         static size_t buffer_size(){return __deque_buf_size(BUfSize,sizeof(T));}
         
         T* cur;//迭代器当前指向。
         T* first;//缓冲区第一个
         T* last;//缓冲区最后一个
-        map_pointer node;//管控中心map
+        map_pointer node;//管控中心map中的节点
         
         void set_node(map_pointer new_node){
             node = new_node;
@@ -49,7 +52,7 @@ namespace JJ {
             return typename super_type::difference_type(buffer_size()) * (node -x.node-1) + (cur-first) + (x.last-x.cur);
         }
         
-        self_type * operator++(){
+        self_type& operator++(){
             ++cur;
             if (cur == last){
                 set_node(node +1);
@@ -58,7 +61,14 @@ namespace JJ {
             return *this;
         }
         
+//        self_type operator++(int){
+//            self tmp = *this;
+//            ++*this;
+//            return tmp;
+//        }
+        
         bool operator ==(const self_type &x){return cur == x.cur;}
+        
         bool operator <(const self_type &x){
             return (node ==x.node)?(cur <x.cur):(node <x.node);
         }
@@ -73,7 +83,12 @@ namespace JJ {
         
     public:
         typedef __deque_iterator<T, BUfSize> iterator;
-        
+        void push_back(const value_type & t){
+            JJ::construct(finish.cur, t);
+            ++finish.cur;
+        }
+        iterator begin(){return start;}
+        iterator end(){return finish;}
         
     protected:
         typedef pointer * map_pointer;
