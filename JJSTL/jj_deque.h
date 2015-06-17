@@ -80,15 +80,8 @@ namespace JJ {
         typedef T value_type;
         typedef value_type* pointer;
         typedef size_t size_type;
-        
-    public:
         typedef __deque_iterator<T, BUfSize> iterator;
-        void push_back(const value_type & t){
-            JJ::construct(finish.cur, t);
-            ++finish.cur;
-        }
-        iterator begin(){return start;}
-        iterator end(){return finish;}
+        
         
     protected:
         typedef pointer * map_pointer;
@@ -109,14 +102,16 @@ namespace JJ {
             for(cur = start.node;cur<finish.node;++cur){
                 uninitialized_fill(*cur, *cur + buffer_size(),value);
             }
+            uninitialized_fill(finish.first, finish.cur, value);
         }
         void create_map_and_nodes(size_type num_eles){
-            size_type num_nodes = num_eles/ buffer_size() + 1;
-            map_size =  num_nodes + 4;//前面留两个，后面留两个
+            size_type map_node_num = num_eles/ buffer_size() + 1;
+            std::cout<<"map_node_num:"<<map_node_num<<std::endl;
+            map_size =  map_node_num + 4;//前面留两个，后面留两个
             map = map_allocator::allocate(map_size);
             
-            map_pointer nstart = map+ (map_size - num_nodes)/2;
-            map_pointer nfinish = nstart + num_nodes - 1;
+            map_pointer nstart = map+ (map_size - map_node_num)/2;
+            map_pointer nfinish = nstart + map_node_num - 1;
             
             map_pointer cur;
             for (cur = nstart; cur <=nfinish; ++cur) {
@@ -126,13 +121,31 @@ namespace JJ {
             start.set_node(nstart);
             finish.set_node(nfinish);
             start.cur = start.first;
-            finish.cur = finish.first + num_nodes%buffer_size();
+            finish.cur = finish.first + num_eles%buffer_size();
+        }
+        
+        //当最后一个缓冲区只有一个空间。此时需要新建一个缓冲区，finish指向新的缓冲区。
+        void push_back_aux(const value_type & t){
+            //TODO
+            //data_allocator::allocate(buffer_size());
         }
         
     public:
         deque(int n, const value_type &value):start(),finish(),map(0),map_size(0){
             this->fill_initialize(n,value);
         };
+        
+        void push_back(const value_type & t){
+            if(finish.cur != finish.last -1){
+                JJ::construct(finish.cur, t);
+                ++finish.cur;
+            }
+            else
+                push_back_aux(t);
+            
+        }
+        iterator begin(){return start;}
+        iterator end(){return finish;}
         
         
     };

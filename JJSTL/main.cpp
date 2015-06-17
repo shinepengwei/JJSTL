@@ -76,8 +76,8 @@ void testList(){
 
 void testDeque(){
     std::cout<<"testDequeue"<<std::endl;
-    JJ::deque<int,8> ideq(10,9);
-    ideq.push_back(10);
+    JJ::deque<int,8> ideq(16,1);
+    //ideq.push_back(10);
     JJ::deque<int,8>::iterator it = ideq.begin();
     int index = 0;
     while (!(it == ideq.end())) {
