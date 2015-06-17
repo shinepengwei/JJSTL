@@ -55,6 +55,7 @@ namespace JJ {
         self_type& operator++(){
             ++cur;
             if (cur == last){
+                std::cout<<"===="<<std::endl;
                 set_node(node +1);
                 cur = first;
             }
@@ -124,11 +125,42 @@ namespace JJ {
             finish.cur = finish.first + num_eles%buffer_size();
         }
         
+        void reallocate_map(size_type nodes_to_add, bool at_front){
+            //TODO 没有考虑目前的map很大，可以直接在map里面移动。
+            size_type old_map_node_num = finish.node - start.node +1;
+            size_type new_map_node_num = old_map_node_num + nodes_to_add;
+            size_type new_map_size = map_size + max(map_size, nodes_to_add) +2;
+            std::cout<<"新建map：new_map_size:"<<new_map_size<<std::endl;
+            
+            map_pointer new_map = map_allocator::allocate(new_map_size);
+            map_pointer new_nstart = new_map + (new_map_size - new_map_node_num)/2;
+            copy(start.node, finish.node+1, new_nstart);
+            //map_allocator::d(map,map_size);
+            map = new_map;
+            map_size = new_map_size;
+            
+            start.set_node(new_nstart);
+            finish.set_node(new_nstart+old_map_node_num-1);
+        }
+        
+        void reserver_map_at_back(size_type nodes_to_add = 1){
+            if(nodes_to_add > map_size-(finish.node - map +1)){
+                //map尾端没有空间了，需要重新分配
+                reallocate_map(nodes_to_add, false);
+            }
+        }
+        
         //当最后一个缓冲区只有一个空间。此时需要新建一个缓冲区，finish指向新的缓冲区。
         void push_back_aux(const value_type & t){
-            //TODO
-            //data_allocator::allocate(buffer_size());
+            reserver_map_at_back();
+            value_type t_copy = t;//复制一个新的对象
+            construct(finish.cur, t_copy);
+            *(finish.node +1) = data_allocator::allocate(buffer_size());
+            finish.set_node(finish.node +1);
+            finish.cur = finish.first;
+            std::cout<<"创建一个新的缓冲区,缓冲区数量："<<finish.node - start.node +1<<std::endl;
         }
+        
         
     public:
         deque(int n, const value_type &value):start(),finish(),map(0),map_size(0){
@@ -136,6 +168,7 @@ namespace JJ {
         };
         
         void push_back(const value_type & t){
+            std::cout<<"push_back"<<std::endl;
             if(finish.cur != finish.last -1){
                 JJ::construct(finish.cur, t);
                 ++finish.cur;
