@@ -54,7 +54,7 @@ namespace JJ {
             return _allocate((difference_type)n, (pointer) 0 );
         }
         
-        static void deallocate(pointer p , size_type n){
+        static void deallocate(pointer p){
             _deallocate(p);
         }
         

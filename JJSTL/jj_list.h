@@ -73,7 +73,7 @@ namespace JJ{
             return p;
         }
 
-        void put_node(link_type p){Alloc::deallocate(p,1);};
+        void put_node(link_type p){Alloc::deallocate(p);};
         void destory_node(link_type p ){
             std::cout<<"destory:"<<p->data<<std::endl;
             JJ::destroy(&p->data);

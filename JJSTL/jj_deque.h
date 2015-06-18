@@ -145,7 +145,7 @@ namespace JJ {
             //简单的将原来的map数据放在新的map中间，TODO可以优化
             map_pointer new_nstart = new_map + (new_map_size - new_map_node_num)/2;
             copy(start.node, finish.node+1, new_nstart);
-            //map_allocator::d(map,map_size);
+            map_allocator::deallocate(map);
             map = new_map;
             map_size = new_map_size;
             

@@ -64,7 +64,7 @@ namespace JJ
 
         void deallocate(){
             if(start)
-                Allocator::deallocate(start, end_of_storage-start);
+                Allocator::deallocate(start);
         }
         
     public:
