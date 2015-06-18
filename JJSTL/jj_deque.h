@@ -14,7 +14,8 @@
 #include "jjalloc.h"
 #include "jjmemory.h"
 #endif /* defined(__JJSTL__jj_deque__) */
-
+using std::cout;
+using std::endl;
 namespace JJ {
     //计算
     inline size_t __deque_buf_size(size_t n, size_t sz){
@@ -55,10 +56,18 @@ namespace JJ {
         self_type& operator++(){
             ++cur;
             if (cur == last){
-                std::cout<<"===="<<std::endl;
+                std::cout<<"==";
                 set_node(node +1);
                 cur = first;
             }
+            return *this;
+        }
+        self_type & operator--(){
+            if(cur == first){
+                set_node(node-1);
+                cur = last;
+            }
+            --cur;
             return *this;
         }
         
@@ -129,10 +138,11 @@ namespace JJ {
             //TODO 没有考虑目前的map很大，可以直接在map里面移动。
             size_type old_map_node_num = finish.node - start.node +1;
             size_type new_map_node_num = old_map_node_num + nodes_to_add;
-            size_type new_map_size = map_size + max(map_size, nodes_to_add) +2;
+            size_type new_map_size = map_size + 4;
             std::cout<<"新建map：new_map_size:"<<new_map_size<<std::endl;
             
             map_pointer new_map = map_allocator::allocate(new_map_size);
+            //简单的将原来的map数据放在新的map中间，TODO可以优化
             map_pointer new_nstart = new_map + (new_map_size - new_map_node_num)/2;
             copy(start.node, finish.node+1, new_nstart);
             //map_allocator::d(map,map_size);
@@ -149,16 +159,30 @@ namespace JJ {
                 reallocate_map(nodes_to_add, false);
             }
         }
+        void reserver_map_at_front(size_type nodes_to_add = 1){
+            if(nodes_to_add > start.node - map)
+                reallocate_map(nodes_to_add, true);
+        }
         
         //当最后一个缓冲区只有一个空间。此时需要新建一个缓冲区，finish指向新的缓冲区。
         void push_back_aux(const value_type & t){
             reserver_map_at_back();
-            value_type t_copy = t;//复制一个新的对象
+            value_type t_copy = t;//复制一个新的对象？TODO 为何要复制一个对象。
             construct(finish.cur, t_copy);
             *(finish.node +1) = data_allocator::allocate(buffer_size());
             finish.set_node(finish.node +1);
             finish.cur = finish.first;
-            std::cout<<"创建一个新的缓冲区,缓冲区数量："<<finish.node - start.node +1<<std::endl;
+            std::cout<<"尾部创建一个新的缓冲区,缓冲区数量："<<finish.node - start.node +1<<std::endl;
+        }
+        
+        void push_front_aux(const value_type & t){
+            reserver_map_at_front();
+            value_type t_copy = t;
+            *(start.node-1) = data_allocator::allocate(buffer_size());
+            start.set_node(start.node -1);
+            start.cur = start.last-1;
+            construct(start.cur, t_copy);
+            std::cout<<"头部创建一个新的缓冲区,缓冲区数量："<<finish.node - start.node +1<<std::endl;
         }
         
         
@@ -168,19 +192,41 @@ namespace JJ {
         };
         
         void push_back(const value_type & t){
-            std::cout<<"push_back"<<std::endl;
+            std::cout<<"push_back"<<t<<std::endl;
             if(finish.cur != finish.last -1){
                 JJ::construct(finish.cur, t);
-                ++finish.cur;
+                ++finish.cur;//在当前缓冲区内操作。
             }
             else
                 push_back_aux(t);
+        }
+        
+        void push_front(const value_type &t){
+            std::cout<<"push_front:"<<t<<std::endl;
+            if (start.cur != start.first){
+                --start.cur;//TODO
+                JJ::construct(start.cur, t);
+            }
+            else
+                push_front_aux(t);
+            
             
         }
+        
         iterator begin(){return start;}
         iterator end(){return finish;}
         
-        
+        void print(){
+            int index =0;
+            iterator it = begin();
+            cout<<"deque"<<endl;
+            while (!(it == end())) {
+                cout<<index<<":"<<*it<<", ";
+                index ++;
+                ++it;
+            }
+            cout<<endl;
+        }
     };
     
     

@@ -77,33 +77,20 @@ void testList(){
 void testDeque(){
     std::cout<<"testDequeue"<<std::endl;
     JJ::deque<int,8> ideq(15,1);
-    JJ::deque<int,8>::iterator it = ideq.begin();
-    int index = 0;
-    while (!(it == ideq.end())) {
-        cout<<index<<":"<<*it<<endl;
-        index ++;
-        ++it;
-    }
+    ideq.print();
     //测试创建一个新的buffer
     ideq.push_back(10);
-    it = ideq.begin();
-    index = 0;
-    while (!(it == ideq.end())) {
-        cout<<index<<":"<<*it<<endl;
-        index ++;
-        ++it;
-    }
+    ideq.print();
+    
+    ideq.push_front(-1);
+    ideq.print();
+    
     //测试创建新的map
+    
     for (int i =0; i<20; i++) {
-        ideq.push_back(i*10);
+        ideq.push_back(-i);
     }
-    it = ideq.begin();
-    index = 0;
-    while (!(it == ideq.end())) {
-        cout<<index<<":"<<*it<<endl;
-        index ++;
-        ++it;
-    }
+    ideq.print();
 }
 int main(int argc, const char * argv[]) {
     testDeque();
