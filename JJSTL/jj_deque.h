@@ -13,7 +13,7 @@
 #include "jj_iterator.h"
 #include "jjalloc.h"
 #include "jjmemory.h"
-#endif /* defined(__JJSTL__jj_deque__) */
+
 using std::cout;
 using std::endl;
 namespace JJ {
@@ -86,6 +86,7 @@ namespace JJ {
     
     template <class T, size_t BUfSize = 0>//,  class Alloc = JJ::allocator<T>>
     class deque{
+        //friend class deque_test;
     public:
         typedef T value_type;
         typedef value_type* pointer;
@@ -144,7 +145,7 @@ namespace JJ {
             map_pointer new_map = map_allocator::allocate(new_map_size);
             //简单的将原来的map数据放在新的map中间，TODO可以优化
             map_pointer new_nstart = new_map + (new_map_size - new_map_node_num)/2;
-            copy(start.node, finish.node+1, new_nstart);
+            uninitialized_copy(start.node, finish.node+1, new_nstart);
             map_allocator::deallocate(map);
             map = new_map;
             map_size = new_map_size;
@@ -230,7 +231,6 @@ namespace JJ {
     };
     
     
-    
-    
-    
 }
+
+#endif /* defined(__JJSTL__jj_deque__) */

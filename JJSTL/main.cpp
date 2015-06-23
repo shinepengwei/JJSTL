@@ -11,6 +11,7 @@
 #include "vector_test.h"
 #include "jj_list.h"
 #include "jj_deque.h"
+#include "deque_test.h"
 using namespace JJ;
 
 void testVector1(){
@@ -93,6 +94,8 @@ void testDeque(){
     ideq.print();
 }
 int main(int argc, const char * argv[]) {
-    testDeque();
-    return 0;
+    deque_test* dt = new deque_test();
+    dt->all_test_case();
+    //testDeque();
+    
 }

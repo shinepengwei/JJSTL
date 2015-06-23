@@ -39,3 +39,26 @@
 //    
 //}
 //}
+//namespace JJ{
+//template <class T, size_t BUfSize>
+//void deque<T,BUfSize>::reallocate_map(size_type nodes_to_add, bool at_front){
+//    //TODO 没有考虑目前的map很大，可以直接在map里面移动。
+//    size_type old_map_node_num = finish.node - start.node +1;
+//    size_type new_map_node_num = old_map_node_num + nodes_to_add;
+//    size_type new_map_size = map_size + 4;
+//    std::cout<<"新建map：new_map_size:"<<new_map_size<<std::endl;
+//    
+//    map_pointer new_map = map_allocator::allocate(new_map_size);
+//    //简单的将原来的map数据放在新的map中间，TODO可以优化
+//    map_pointer new_nstart = new_map + (new_map_size - new_map_node_num)/2;
+//    copy(start.node, finish.node+1, new_nstart);
+//    map_allocator::deallocate(map);
+//    map = new_map;
+//    map_size = new_map_size;
+//    
+//    start.set_node(new_nstart);
+//    finish.set_node(new_nstart+old_map_node_num-1);
+//}
+//
+//    
+//}
