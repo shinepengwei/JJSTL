@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <assert.h>
 using std::cout;
 using std::endl;
 namespace JJ {
@@ -49,10 +50,10 @@ namespace JJ {
             test_case2();
             cout<<endl;
             cout<<"test case 3"<<endl;
-            test_case2();
+            test_case3();
             cout<<endl;
             cout<<"test case 4"<<endl;
-            test_case3();
+            test_case4();
         };
     };
 }

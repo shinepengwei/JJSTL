@@ -38,10 +38,10 @@ namespace JJ {
         T* cur;//迭代器当前指向。
         T* first;//缓冲区第一个
         T* last;//缓冲区最后一个
-        map_pointer node;//管控中心map中的节点
+        map_pointer map_node;//管控中心map中的节点
         
         void set_node(map_pointer new_node){
-            node = new_node;
+            map_node = new_node;
             first = *new_node;
             last = first + typename super_type::difference_type(buffer_size());
         }
@@ -50,21 +50,21 @@ namespace JJ {
         typename super_type::pointer operator->() const{return &(operator*());}
         
         typename super_type::difference_type operator-(const self_type & x) const{
-            return typename super_type::difference_type(buffer_size()) * (node -x.node-1) + (cur-first) + (x.last-x.cur);
+            return typename super_type::difference_type(buffer_size()) * (map_node -x.map_node-1) + (cur-first) + (x.last-x.cur);
         }
         
         self_type& operator++(){
             ++cur;
             if (cur == last){
                 std::cout<<"==";
-                set_node(node +1);
+                set_node(map_node +1);
                 cur = first;
             }
             return *this;
         }
         self_type & operator--(){
             if(cur == first){
-                set_node(node-1);
+                set_node(map_node-1);
                 cur = last;
             }
             --cur;
@@ -80,13 +80,13 @@ namespace JJ {
         bool operator ==(const self_type &x){return cur == x.cur;}
         
         bool operator <(const self_type &x){
-            return (node ==x.node)?(cur <x.cur):(node <x.node);
+            return (map_node ==x.map_node)?(cur <x.cur):(map_node <x.map_node);
         }
     };
     
     template <class T, size_t BUfSize = 0>//,  class Alloc = JJ::allocator<T>>
     class deque{
-        //friend class deque_test;
+        friend class deque_test;
     public:
         typedef T value_type;
         typedef value_type* pointer;
@@ -110,7 +110,7 @@ namespace JJ {
         void fill_initialize(size_type n, const value_type &value){
             create_map_and_nodes(n);
             map_pointer cur;
-            for(cur = start.node;cur<finish.node;++cur){
+            for(cur = start.map_node;cur<finish.map_node;++cur){
                 uninitialized_fill(*cur, *cur + buffer_size(),value);
             }
             uninitialized_fill(finish.first, finish.cur, value);
@@ -137,7 +137,7 @@ namespace JJ {
         
         void reallocate_map(size_type nodes_to_add, bool at_front){
             //TODO 没有考虑目前的map很大，可以直接在map里面移动。
-            size_type old_map_node_num = finish.node - start.node +1;
+            size_type old_map_node_num = finish.map_node - start.map_node +1;
             size_type new_map_node_num = old_map_node_num + nodes_to_add;
             size_type new_map_size = map_size + 4;
             std::cout<<"新建map：new_map_size:"<<new_map_size<<std::endl;
@@ -145,7 +145,7 @@ namespace JJ {
             map_pointer new_map = map_allocator::allocate(new_map_size);
             //简单的将原来的map数据放在新的map中间，TODO可以优化
             map_pointer new_nstart = new_map + (new_map_size - new_map_node_num)/2;
-            uninitialized_copy(start.node, finish.node+1, new_nstart);
+            uninitialized_copy(start.map_node, finish.map_node+1, new_nstart);
             map_allocator::deallocate(map);
             map = new_map;
             map_size = new_map_size;
@@ -155,13 +155,13 @@ namespace JJ {
         }
         
         void reserver_map_at_back(size_type nodes_to_add = 1){
-            if(nodes_to_add > map_size-(finish.node - map +1)){
+            if(nodes_to_add > map_size-(finish.map_node - map +1)){
                 //map尾端没有空间了，需要重新分配
                 reallocate_map(nodes_to_add, false);
             }
         }
         void reserver_map_at_front(size_type nodes_to_add = 1){
-            if(nodes_to_add > start.node - map)
+            if(nodes_to_add > start.map_node - map)
                 reallocate_map(nodes_to_add, true);
         }
         
@@ -170,20 +170,36 @@ namespace JJ {
             reserver_map_at_back();
             value_type t_copy = t;//复制一个新的对象？TODO 为何要复制一个对象。
             construct(finish.cur, t_copy);
-            *(finish.node +1) = data_allocator::allocate(buffer_size());
-            finish.set_node(finish.node +1);
+            *(finish.map_node +1) = data_allocator::allocate(buffer_size());
+            finish.set_node(finish.map_node +1);
             finish.cur = finish.first;
-            std::cout<<"尾部创建一个新的缓冲区,缓冲区数量："<<finish.node - start.node +1<<std::endl;
+            std::cout<<"尾部创建一个新的缓冲区,缓冲区数量："<<finish.map_node - start.map_node +1<<std::endl;
         }
         
         void push_front_aux(const value_type & t){
             reserver_map_at_front();
             value_type t_copy = t;
-            *(start.node-1) = data_allocator::allocate(buffer_size());
-            start.set_node(start.node -1);
+            *(start.map_node-1) = data_allocator::allocate(buffer_size());
+            start.set_node(start.map_node -1);
             start.cur = start.last-1;
             construct(start.cur, t_copy);
-            std::cout<<"头部创建一个新的缓冲区,缓冲区数量："<<finish.node - start.node +1<<std::endl;
+            std::cout<<"头部创建一个新的缓冲区,缓冲区数量："<<finish.map_node - start.map_node +1<<std::endl;
+        }
+        
+        //for test
+        int get_buff_num(){
+            return finish.map_node - start.map_node + 1;
+        }
+        void print(){
+            int index =0;
+            iterator it = begin();
+            cout<<"deque"<<endl;
+            while (!(it == end())) {
+                cout<<index<<":"<<*it<<", ";
+                index ++;
+                ++it;
+            }
+            cout<<endl;
         }
         
         
@@ -210,24 +226,38 @@ namespace JJ {
             }
             else
                 push_front_aux(t);
-            
-            
+        }
+        value_type pop_front(){
+            value_type ret = *start.cur;
+            destroy(start.cur);
+            start.cur ++;
+            if (start.cur == start.last){
+                //delete buf
+                data_allocator::deallocate(*start.map_node);
+                start.set_node(start.map_node+1);
+                start.cur = start.first;
+            }
+            return ret;
+        }
+        
+        value_type pop_back(){
+            if (finish.cur != finish.first){
+                finish.cur --;
+            }else{
+                data_allocator::deallocate(*finish.map_node);
+                finish.set_node(finish.map_node-1);
+                finish.cur = finish.last-1;
+            }
+            value_type ret = *finish.cur;
+            destroy(finish.cur);
+            return ret;
+        
         }
         
         iterator begin(){return start;}
         iterator end(){return finish;}
         
-        void print(){
-            int index =0;
-            iterator it = begin();
-            cout<<"deque"<<endl;
-            while (!(it == end())) {
-                cout<<index<<":"<<*it<<", ";
-                index ++;
-                ++it;
-            }
-            cout<<endl;
-        }
+        
     };
     
     
