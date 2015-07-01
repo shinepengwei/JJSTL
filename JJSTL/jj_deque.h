@@ -92,7 +92,7 @@ namespace JJ {
         typedef value_type* pointer;
         typedef size_t size_type;
         typedef __deque_iterator<T, BUfSize> iterator;
-        
+        typedef typename iterator::super_type::difference_type difference_type;
         
     protected:
         typedef pointer * map_pointer;
@@ -136,7 +136,7 @@ namespace JJ {
         }
         
         void reallocate_map(size_type nodes_to_add, bool at_front){
-            //TODO 没有考虑目前的map很大，可以直接在map里面移动。
+            //TODO 没有考虑的情况：如果map很大，可以直接在map里面移动。
             size_type old_map_node_num = finish.map_node - start.map_node +1;
             size_type new_map_node_num = old_map_node_num + nodes_to_add;
             size_type new_map_size = map_size + 4;
@@ -185,12 +185,13 @@ namespace JJ {
             construct(start.cur, t_copy);
             std::cout<<"头部创建一个新的缓冲区,缓冲区数量："<<finish.map_node - start.map_node +1<<std::endl;
         }
-        
+        iterator insert_aux(iterator pos, const value_type &x);
         //for test
         int get_buff_num(){
-            return finish.map_node - start.map_node + 1;
+            return int(finish.map_node - start.map_node) + 1;
         }
-        void print(){
+        void print()
+        {
             int index =0;
             iterator it = begin();
             cout<<"deque"<<endl;
@@ -227,6 +228,8 @@ namespace JJ {
             else
                 push_front_aux(t);
         }
+        value_type front(){return *begin();}
+        value_type back(){return * --end();}
         value_type pop_front(){
             value_type ret = *start.cur;
             destroy(start.cur);
@@ -251,14 +254,60 @@ namespace JJ {
             value_type ret = *finish.cur;
             destroy(finish.cur);
             return ret;
+        }
         
+        void insert(iterator pos, const value_type & x){
+            if (pos == this->finish){
+                push_back(x);
+            }else if(pos == this->start){
+                push_front(x);
+            }else{
+                insert_aux(pos, x);
+            }
+            
         }
         
         iterator begin(){return start;}
         iterator end(){return finish;}
-        
+        difference_type size(){return end() - begin();}
         
     };
+    
+    
+    template <class T, size_t BUfSize>
+    typename deque<T,BUfSize>::iterator deque<T,BUfSize>::insert_aux(iterator pos, const value_type &x){
+        difference_type index = pos - start;
+        if(index < size()/2){
+            cout<<"insert at front"<<endl;
+            push_front(front());
+            iterator front1 = begin();
+            ++front1;
+            iterator front2 =front1;
+            ++front2;
+            while (!(front2 == pos)) {
+                JJ::construct(front1.cur, *front2);
+                ++front1;
+                ++front2;
+            }
+            
+        }else{
+            cout<<"insert at begin"<<endl;
+            push_back(back());
+            iterator end1 = --end();
+            --end1;
+            iterator end2 = end1;
+            --end2;
+            while (!(end2 == pos)) {
+                //TODO something wrong
+                JJ::construct(end1.cur, *end2);
+                ++end1;
+                ++end2;
+            }
+        }
+        --pos;
+        JJ::construct(pos.cur, x);
+        return pos;
+    }
     
     
 }

@@ -24,6 +24,7 @@ namespace JJ{
         void test_case1(){
             std::cout<<"测试：创建／push_back／push_front/重新分配"<<std::endl;
             deque<int,8> ideq(13,1);
+            assert(ideq.size() == 13);
             ideq.print();
             //测试创建一个新的buffer
             ideq.push_back(10);
@@ -82,6 +83,27 @@ namespace JJ{
         }
         void test_case3(){
             cout<<"test deque: insert"<<endl;
+            deque<int,8> ideq(15,1);
+            assert(ideq.get_buff_num() == 2);
+            
+            ideq.insert(ideq.begin(), -1);
+            assert(ideq.get_buff_num() == 3);
+            ideq.insert(ideq.end(), 2);
+            assert(ideq.get_buff_num() == 4);
+            ideq.print();
+            
+            assert(ideq.front() == -1);
+            assert(ideq.back() == 2);
+            
+            deque<int,8>::iterator x = ideq.begin();
+            ++x;
+            ideq.insert(x,2);
+            ideq.print();
+             //TODO something wrong
+            x = ideq.end();
+            --x;
+            ideq.insert(x,100);
+            ideq.print();
             
         }
         
