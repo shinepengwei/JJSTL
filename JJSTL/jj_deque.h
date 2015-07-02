@@ -289,22 +289,22 @@ namespace JJ {
                 ++front1;
                 ++front2;
             }
+            --pos;//若像前拓展，则相当于在pos前面加一个
             
         }else{
+            //若向后拓展，即相当于在pos的位置处加一个。
             cout<<"insert at begin"<<endl;
             push_back(back());
-            iterator end1 = --end();
+            iterator end1 = end();
             --end1;
             iterator end2 = end1;
             --end2;
             while (!(end2 == pos)) {
-                //TODO something wrong
                 JJ::construct(end1.cur, *end2);
                 ++end1;
                 ++end2;
             }
         }
-        --pos;
         JJ::construct(pos.cur, x);
         return pos;
     }

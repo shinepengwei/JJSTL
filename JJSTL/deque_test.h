@@ -97,9 +97,9 @@ namespace JJ{
             
             deque<int,8>::iterator x = ideq.begin();
             ++x;
-            ideq.insert(x,2);
+            ideq.insert(x,-100);
             ideq.print();
-             //TODO something wrong
+            
             x = ideq.end();
             --x;
             ideq.insert(x,100);
